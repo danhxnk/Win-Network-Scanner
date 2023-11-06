@@ -23,7 +23,7 @@ IF %ERRORLEVEL% EQU 0 (ECHO %IP% https status: Port 443 Open)	ELSE (ECHO %IP% ht
 for /f "tokens=2" %%a in ('nslookup %IP% %DNS1% ^| FIND /i "Name"') Do ECHO %IP% DNS1 Resolution: %%a
 IF "%DNS2%" NEQ "" for /f "tokens=2" %%a in ('nslookup %IP% %DNS2% ^| FIND /i "Name"') Do ECHO %IP% DNS2 Resolution: %%a
 for /f "tokens=2" %%a in ('ping -a %IP% -w 60 -n 1 ^| FIND /i "Pinging"') DO ECHO %IP% Ping Resolution: %%a 
-for /f "tokens=2" %%a in ('arp -a ^| FIND "%IP%"') do SET MAC=%%a  echo %IP% MAC Address: %%a
+for /f "tokens=2" %%a in ('arp -a ^| FIND "%IP%"') do SET MAC=%%a && echo %IP% MAC Address: %%a
 for /f "tokens=*" %%a in ('curl -get https://api.maclookup.app/v2/macs/%MAC:~0,9%00-00-00/company/name -s') do ECHO %IP% Nic Vendor: %%a
 ECHO.
 
